@@ -57,10 +57,12 @@ function initialize!(neighborhood_search::FaceNeighborhoodSearch, mesh)
     end
 
     for cell in keys(hashtable)
-        # Merge all lists of faces in the neighboring cells into one iterator
-        neighbor_iterator[cell] = unique(Iterators.flatten(faces_in_cell(neighbor,
-                                                                         neighborhood_search)
-                                                           for neighbor in neighboring_cells(cell)))
+        for neighbor in neighboring_cells(cell)
+            # Merge all lists of faces in the neighboring cells into one iterator
+            neighbor_iterator[neighbor] = unique(Iterators.flatten(faces_in_cell(neighbor_,
+                                                                                 neighborhood_search)
+                                                                   for neighbor_ in neighboring_cells(neighbor)))
+        end
     end
 end
 
